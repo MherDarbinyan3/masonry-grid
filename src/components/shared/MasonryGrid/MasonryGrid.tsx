@@ -1,5 +1,5 @@
 import React from "react";
-import {Image} from "../../../Interface/image.ts";
+import {Image} from "../../../interfaces/image.ts";
 import {Container} from "./masonryGrid.style.ts";
 import MasonryGridItem from "./MasonryGridItem/MasonryGridItem.tsx";
 

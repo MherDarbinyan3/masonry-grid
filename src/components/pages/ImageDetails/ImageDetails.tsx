@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {getImage} from "../../../utils/fetcher.ts";
 import {Author, BackButton, Description, Details, ImageContainer, Image, Date} from "./imageDetails.style.ts";
 import {dateFormat} from "../../../utils/date.ts";
-import {Image as IImage} from "../../../Interface/image.ts";
+import {Image as IImage} from "../../../interfaces/image.ts";
 import Loading from "../../shared/Loading/Loading.tsx";
 
 
