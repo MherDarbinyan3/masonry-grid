@@ -1,12 +1,9 @@
+import {Urls, User} from "../types/image.ts";
+
 export interface Image {
     id: string;
-    urls: {
-        regular: string;
-        full: string;
-    };
-    user: {
-        name: string;
-    };
+    urls: Urls;
+    user: User;
     slug: string;
     created_at: string;
     description: string;
@@ -14,5 +11,4 @@ export interface Image {
     width: number;
     height: number;
     blur_hash: string;
-
 }

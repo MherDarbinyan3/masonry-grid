@@ -1,4 +1,4 @@
-import {Image} from "../Interface/image.ts";
+import {Image} from "../interfaces/image.ts";
 
 const apiUrl = import.meta.env.VITE_API_URL;
 

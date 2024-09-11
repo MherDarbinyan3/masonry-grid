@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {Image} from "../../../../Interface/image.ts";
+import {Image} from "../../../../interfaces/image.ts";
 import {Grid, GridImage} from "./masonryGridItem.style.ts";
 
 interface MasonryGridItemProps {
