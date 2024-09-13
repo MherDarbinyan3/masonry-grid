@@ -1,27 +1,30 @@
-import React, {useEffect, useState} from "react";
-import {Image} from "../../../Interface/image.ts";
-import MasonryGrid from "../../shared/MasonryGrid/MasonryGrid.tsx";
-import Loading from "../../shared/Loading/Loading.tsx";
-import {getImages} from "../../../utils/fetcher.ts";
+import React, {useCallback, useState} from "react";
+import TextInput from "../../shared/TextInput/TextInput.tsx";
+import {ImagesContainer} from "./images.style.ts";
+import {debounce} from "../../../utils/debounce.ts";
+import VirtualizedMasonryGrid from "../../shared/VirtualizedMasonryGrid/VirtualizedMasonryGrid.tsx";
 
 const Images: React.FC = () => {
-    const [images, setImages] = useState<Image[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [value, setValue] = useState<string>('');
+    const [query, setQuery] = useState<string>('');
 
-    useEffect(() => {
-        const loadImages = async () => {
-            const fetchedImages = await getImages();
-            setImages(fetchedImages);
-            setLoading(false);
-        };
+    const debouncedSearch = useCallback(
+        debounce((value: string) => {
+            setQuery(value)
+        }, 1000),
+        []
+    );
 
-        loadImages();
-    }, []);
-
-    if (loading) return <Loading />;
+    const handleChange = (value: string) => {
+        setValue(value);
+        debouncedSearch(value);
+    };
 
     return (
-        <MasonryGrid images={images} />
+        <ImagesContainer>
+            <TextInput value={value} onChange={handleChange} />
+            <VirtualizedMasonryGrid query={query} />
+        </ImagesContainer>
     );
 }
 

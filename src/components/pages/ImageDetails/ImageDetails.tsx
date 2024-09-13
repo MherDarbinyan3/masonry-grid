@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {getImage} from "../../../utils/fetcher.ts";
 import {Author, BackButton, Description, Details, ImageContainer, Image, Date} from "./imageDetails.style.ts";
 import {dateFormat} from "../../../utils/date.ts";
 import {Image as IImage} from "../../../interfaces/image.ts";
 import Loading from "../../shared/Loading/Loading.tsx";
-
 
 const ImageDetails: React.FC = () => {
     const {id} = useParams<{ id: string }>();
@@ -15,13 +13,18 @@ const ImageDetails: React.FC = () => {
 
     useEffect(() => {
         const loadImageById = async () => {
-            const fetchedImage = await getImage(id || '');
-            setData(fetchedImage);
-            setLoading(false);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/photos/${id}?client_id=${import.meta.env.VITE_CLIENT_ID}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setData(data);
+        setLoading(false);
         };
 
         loadImageById();
-    }, []);
+    }, [id]);
 
     if (loading) return <Loading />;
 
