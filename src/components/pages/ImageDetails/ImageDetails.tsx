@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {Author, BackButton, Description, Details, ImageContainer, Image, Date} from "./imageDetails.style.ts";
+import {Author, BackButton, Description, Details, ImageContainer, StyledImage, Date} from "./imageDetails.style.ts";
 import {dateFormat} from "../../../utils/date.ts";
 import {Image as IImage} from "../../../interfaces/image.ts";
+
 import Loading from "../../shared/Loading/Loading.tsx";
 
 const ImageDetails: React.FC = () => {
@@ -26,6 +27,19 @@ const ImageDetails: React.FC = () => {
         loadImageById();
     }, [id]);
 
+    const getWebPUrl = (url: string) => {
+        const urlObj = new URL(url);
+        urlObj.searchParams.set('fm', 'webp');
+        return urlObj.toString();
+    };
+
+    const getAVIFUrl = (url: string) => {
+        const urlObj = new URL(url);
+        urlObj.searchParams.set('fm', 'avif');
+        return urlObj.toString();
+    };
+
+
     if (loading) return <Loading />;
 
     if (!data) return;
@@ -34,7 +48,25 @@ const ImageDetails: React.FC = () => {
         <Details>
             <BackButton onClick={() => navigate('/')}>X</BackButton>
             <ImageContainer>
-                <Image src={data.urls.full} alt={data.alt_description} />
+                <picture>
+                    <source
+                        type="image/avif"
+                        srcSet={`${getAVIFUrl(data.urls.small)} 400w, ${getAVIFUrl(data.urls.regular)} 1080w`}
+                        sizes="(max-width: 400px) 400px, 1080px"
+                    />
+                    <source
+                        type="image/webp"
+                        srcSet={`${getWebPUrl(data.urls.small)} 400w, ${getWebPUrl(data.urls.regular)} 1080w`}
+                        sizes="(max-width: 400px) 400px, 1080px"
+                    />
+                    <StyledImage
+                        src={data.urls.regular}
+                        alt={data.description || data.alt_description || 'Unsplash Image'}
+                        loading="lazy"
+                        srcSet={`${data.urls.small} 400w, ${data.urls.regular} 1080w`}
+                        sizes="(max-width: 400px) 400px, 1080px"
+                    />
+                </picture>
             </ImageContainer>
             <Author>{data.user.name}</Author>
             <Description>{data.alt_description}</Description>

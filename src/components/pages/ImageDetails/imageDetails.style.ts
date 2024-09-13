@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const Details = styled.div`
     padding: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
 `;
 
 export const BackButton = styled.div`
@@ -24,20 +26,20 @@ export const BackButton = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-    display: flex;
-    justify-content: center;
+    position: relative;
+    width: 100%;
+    padding-top: 66.66%;
+    margin-top: 64px;
 `;
 
-export const Image = styled.img.attrs((props) => ({
-    src: props.src,
-    alt: props.alt,
-}))`
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border-radius: 6px;
-    box-shadow: rgba(0, 0, 0, 0.19) 0 10px 20px, rgba(0, 0, 0, 0.23) 0 6px 6px;
-`
+export const StyledImage = styled.img`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
 
 export const Author = styled.div`
     font-size: 20px;
