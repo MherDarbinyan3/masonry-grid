@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
 import TextInput from "../../shared/TextInput/TextInput.tsx";
 import {ImagesContainer} from "./images.style.ts";
-import {debounce} from "../../../utils/debounce.ts";
+import {debounce} from "@/utils/debounce.ts";
 import VirtualizedMasonryGrid from "../../shared/VirtualizedMasonryGrid/VirtualizedMasonryGrid.tsx";
 
 const Images: React.FC = () => {

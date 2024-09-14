@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {dateFormat} from "../../../utils/date.ts";
-import {Image as IImage} from "../../../interfaces/image.ts";
-import {useErrorHandler} from "../../../hooks/useErrorHandler.ts";
+import {dateFormat} from "@/utils/date.ts";
+import {Image as IImage} from "@/interfaces/image.ts";
+import {useErrorHandler} from "@/hooks/useErrorHandler.ts";
 import {Author, BackButton, Description, Details, ImageContainer, StyledImage, Date} from "./imageDetails.style.ts";
 
 import Loading from "../../shared/Loading/Loading.tsx";

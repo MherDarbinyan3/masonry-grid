@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {useNavigate} from "react-router-dom";
-import { Image as IImage } from "../../../interfaces/image.ts";
-import {useErrorHandler} from "../../../hooks/useErrorHandler.ts";
+import { Image as IImage } from "@/interfaces/image.ts";
+import {useErrorHandler} from "@/hooks/useErrorHandler.ts";
 import {Column, Grid, ImageContainer, StyledImage} from "./virtualizedMasonryGrid.style.ts";
 import Loading from "../Loading/Loading.tsx";
 
@@ -220,7 +220,7 @@ const VirtualizedMasonryGrid: React.FC<VirtualizedMasonryGridProps> = ({ query }
                             <ImageContainer
                                 onClick={() => navigate(`/images/${photo.id}`)}
                                 key={photo.id}
-                                aspectRatio={`${photo.width} / ${photo.height}`}
+                                $aspectRatio={`${photo.width} / ${photo.height}`}
                                 ref={(el) => {
                                     if (el) {
                                         observerRef.current?.observe(el);
