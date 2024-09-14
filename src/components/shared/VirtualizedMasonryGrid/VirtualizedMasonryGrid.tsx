@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Image as IImage } from "../../../interfaces/image.ts";
 import {useNavigate} from "react-router-dom";
-import Loading from "../Loading/Loading.tsx";
+import { Image as IImage } from "../../../interfaces/image.ts";
+import {useErrorHandler} from "../../../hooks/useErrorHandler.ts";
 import {Column, Grid, ImageContainer, StyledImage} from "./virtualizedMasonryGrid.style.ts";
+import Loading from "../Loading/Loading.tsx";
 
 const PHOTOS_PER_PAGE = 20;
 const BUFFER_SIZE = 2;
@@ -15,6 +16,7 @@ interface VirtualizedMasonryGridProps {
 
 const VirtualizedMasonryGrid: React.FC<VirtualizedMasonryGridProps> = ({ query }) => {
     const navigate = useNavigate();
+    const setCustomError = useErrorHandler();
     const [photos, setPhotos] = useState<IImage[]>([]);
     const [columns, setColumns] = useState(3);
     const [isLoading, setIsLoading] = useState(false);
@@ -50,10 +52,12 @@ const VirtualizedMasonryGrid: React.FC<VirtualizedMasonryGridProps> = ({ query }
             }
 
             const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
             const data = await response.json();
+            if (!response.ok) {
+                data.errors.forEach((error: string) => {
+                    setCustomError(`${response.status} - ${error}`)
+                })
+            }
             const fetchedPhotos: IImage[] = newQuery ? data.results : data;
 
             if (fetchedPhotos.length > 0) {
@@ -95,12 +99,16 @@ const VirtualizedMasonryGrid: React.FC<VirtualizedMasonryGridProps> = ({ query }
             currentPage.current = page;
             lastQuery.current = newQuery;
         } catch (error) {
-            console.error('Error fetching photos:', error);
+            if (error instanceof Error) {
+                setCustomError(error.message)
+            } else {
+                setCustomError('Error fetching photos')
+            }
         } finally {
             setIsLoading(false);
             isFetching.current = false;
         }
-    }, []);
+    }, [setCustomError]);
 
     const getColumns = () => {
         const cols: IImage[][] = Array.from({ length: columns }, () => []);
