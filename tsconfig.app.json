@@ -18,7 +18,18 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Added for Jest and React compatibility */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* Path alias for absolute imports */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src", "vite-env.d.ts"]
+  "include": ["src", "vite-env.d.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

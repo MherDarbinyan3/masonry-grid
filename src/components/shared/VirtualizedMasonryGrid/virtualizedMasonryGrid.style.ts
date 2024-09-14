@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface ImageContainerProps {
+    $aspectRatio: string;
+}
+
 export const Grid = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -14,11 +18,11 @@ export const Column = styled.div`
   padding: 0 5px;
 `;
 
-export const ImageContainer = styled.div<{ aspectRatio: string }>`
+export const ImageContainer = styled.div<ImageContainerProps>`
   position: relative;
   width: 100%;
   margin-bottom: 10px;
-  aspect-ratio: ${props => props.aspectRatio};
+  aspect-ratio: ${props => props.$aspectRatio};
   background-color: #f0f0f0;
   cursor: pointer;
   border-radius: 6px;

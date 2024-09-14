@@ -1,12 +1,16 @@
-import React, {Suspense} from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Route, Routes, BrowserRouter, BrowserRouterProps } from 'react-router-dom';
 import Loading from "../components/shared/Loading/Loading.tsx";
 import NotFound from "../components/shared/NotFound/NotFound.tsx";
 
 const Images = React.lazy(() => import('../components/pages/Images/Images'));
 const ImageDetails = React.lazy(() => import('../components/pages/ImageDetails/ImageDetails'));
 
-const AppRoutes: React.FC = () => (
+interface AppRoutesProps {
+    Router?: React.ComponentType<BrowserRouterProps>;
+}
+
+const AppRoutes: React.FC<AppRoutesProps> = ({ Router = BrowserRouter }) => (
     <Router>
         <Routes>
             <Route path="/" element={

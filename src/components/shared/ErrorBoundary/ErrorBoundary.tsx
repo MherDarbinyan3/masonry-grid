@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, ReactNode } from 'react';
-import {ErrorContext} from "../../../context/ErrorContext.ts";
+import {ErrorContext} from "@/context/ErrorContext.ts";
 import {ErrorContainer, ErrorDescription, ErrorTitle} from "./errorBoundary.style.ts";
 
 interface ErrorBoundaryProps {
