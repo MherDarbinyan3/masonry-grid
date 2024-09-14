@@ -1,9 +1,12 @@
 import React from 'react';
 import Routes from "./routes/Routes.tsx";
+import ErrorBoundary from "./components/shared/ErrorBoundary/ErrorBoundary.tsx";
 
 const App:React.FC = () => {
     return (
-        <Routes />
+        <ErrorBoundary>
+            <Routes/>
+        </ErrorBoundary>
     )
 }
 
